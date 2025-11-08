@@ -392,5 +392,36 @@
     window.addEventListener('resize', resizeCanvas);
 
   </script>
+  <script>
+  window.addEventListener("load", () => {
+    const music = document.getElementById("music");
+    music.volume = 0.5; // set lower volume
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // browser blocked autoplay, show a play button
+        const btn = document.createElement("button");
+        btn.textContent = "Tap to Play Music 🎵";
+        btn.style.position = "fixed";
+        btn.style.bottom = "20px";
+        btn.style.left = "50%";
+        btn.style.transform = "translateX(-50%)";
+        btn.style.padding = "10px 20px";
+        btn.style.background = "#ff5c8d";
+        btn.style.color = "white";
+        btn.style.border = "none";
+        btn.style.borderRadius = "8px";
+        btn.style.fontSize = "18px";
+        btn.style.zIndex = "9999";
+        document.body.appendChild(btn);
+        btn.onclick = () => {
+          music.play();
+          btn.remove();
+        };
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
